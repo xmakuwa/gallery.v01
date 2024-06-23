@@ -18,3 +18,22 @@ const arrayDiv=galleryItems.map((item) => {
     divBoxImage.append(aImage);
     return divBoxImage;
 });
+ulGallery.append(...arrayDiv);
+
+ulGallery.addEventListener("click", (event) => {
+    event.preventDefault();
+    
+    const lightbox = basicLightbox.create(`
+    <img src="${event.target.dataset.source}" width="800" height="600">
+    `, {
+        onShow: (lightbox) => { document.addEventListener("keydown",keyEsc);  },
+    });
+    
+    lightbox.show();
+
+    function keyEsc(event) {
+    if (event.key === 'Escape') {
+        lightbox.close();
+        }
+    }
+});
